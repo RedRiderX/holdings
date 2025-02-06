@@ -1,4 +1,4 @@
-import Link from "next/link";
+// import Link from "next/link";
 import PixiCanvas from './pixiDemo'
 import { Button } from "@/components/ui/button";
 

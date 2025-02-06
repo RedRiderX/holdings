@@ -16,7 +16,7 @@ extend({
 })
 
 const MyComponent = () => {
-  const drawCallback = useCallback(graphics => {
+  const drawCallback = useCallback((graphics: Graphics) => {
     graphics.clear()
     graphics.setFillStyle({ color: 'red' })
     graphics.rect(0, 0, 100, 100)
