@@ -2,13 +2,23 @@
 
 A game of Stocks and Steel. An adaptation of merger style boardgames like Aquire.
 
+## commands
+
+dev mode
+
+```sh
+bun run --bun dev
+```
+
 ## todo
 
 - [x] setup react + tailwind + vite
     - [x] make it deploy with netlify
     - [ ] sketch out interface
     - [ ] add some basic logic
-- [ ] setup pixi js
+- [x] set up shadcn ui
+    https://github.com/shadcn/app-tailwind-v4/
+- [x] setup pixi js
     - [ ] create tilemap base layer
 - [ ] setup discord activity lobby with playroom 
     - [ ] what's the best way to make a test layer that bypasses discord???
