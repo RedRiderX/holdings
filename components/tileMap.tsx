@@ -1,6 +1,6 @@
 "use client";
 
-import { extend, useTick } from "@pixi/react";
+import { extend } from "@pixi/react";
 import {
   Container,
   Graphics,
@@ -10,7 +10,6 @@ import {
   Rectangle,
 } from "pixi.js";
 import { useCallback, useEffect, useState } from "react";
-import { EnumValues } from "zod";
 
 extend({
   Container,
@@ -29,13 +28,13 @@ interface Tile {
 }
 
 interface TileMapProps {
-  boardState: Array;
+  boardState: TileState[][];
   tileWidth: number;
   tileHeight: number;
   tileSet: string;
 }
 
-interface TileState {
+export interface TileState {
   state: "undeveloped" | "developed" | "destroyed" | "residental";
   company?: number;
   prevCompany?: number;
@@ -43,26 +42,19 @@ interface TileState {
   variant: number;
 }
 
-const TileMap: React.FC<TileMapProps> = ({
+export const TileMap: React.FC<TileMapProps> = ({
   boardState,
   tileWidth,
   tileHeight,
   tileSet,
 }) => {
   const [tiles, setTiles] = useState<Tile[]>([]);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<{ x: number; y: number; color: string; }[]>([]);
   const [loaded, setLoaded] = useState(false);
 
-  // Load tileset and create tiles
-  useEffect(() => {
-    // debugger
-    Assets.load(tileSet).then(buildBoard);
-  }, [boardState, tileWidth, tileHeight, tileSet]);
-
-  const buildBoard = () => {
+  const buildBoard = useCallback(() => {
     const newTiles = [];
     const newTags = [];
-    // console.log(Assets.get(tileSet));
     for (const [x, row] of boardState.entries()) {
       for (const [y, cell] of row.entries()) {
         // const frame = Math.floor(Math.random() * 4); // Example: 4 frames
@@ -70,7 +62,7 @@ const TileMap: React.FC<TileMapProps> = ({
         //   source: Assets.get(tileSet).texture,
         //   frame: new Rectangle(frame * tileWidth, 0, tileWidth, tileHeight),
         // });
-        const texture = Assets.get(tileSet);
+        const texture: Texture = Assets.get(tileSet);
         newTiles.push({ x: x * tileWidth, y: y * tileHeight, texture });
 
         if (cell.state == "developed") {
@@ -81,7 +73,13 @@ const TileMap: React.FC<TileMapProps> = ({
     setTiles(newTiles);
     setTags(newTags);
     setLoaded(true);
-  }
+  }, [boardState, tileHeight, tileSet, tileWidth])
+
+  // Load tileset and create tiles
+  useEffect(() => {
+    // debugger
+    void Assets.load(tileSet).then(buildBoard);
+  }, [tileSet, buildBoard]);
 
   // Optional: Animation example (using useTick)
   // useTick((ticker) => {
@@ -114,16 +112,16 @@ const TileMap: React.FC<TileMapProps> = ({
       ))}
       {loaded &&
         tags.map((tag, index) => (
-          <pixiGraphics draw={(graphics: Graphics) => {
-            graphics.clear();
-            graphics.setFillStyle({ color: tag.color });
-            graphics.rect(tag.x, tag.y, 50, 50);
-            graphics.fill();
-          }} />
+          <pixiGraphics
+            key={index}
+            draw={(graphics: Graphics) => {
+              graphics.clear();
+              graphics.setFillStyle({ color: tag.color });
+              graphics.rect(tag.x, tag.y, 50, 50);
+              graphics.fill();
+            }} />
         ))}
 
     </pixiContainer>
   );
 };
-
-export default TileMap;
