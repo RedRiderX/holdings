@@ -8,6 +8,17 @@ import { Button } from "@/components/ui/button";
 export default function LandingPage() {
   const tileSetPath = "/assets/game-city-tileset-base.png"; // Path to your tileset
 
+  const boardCols = 12;
+  const boardRows = 9;
+  const boardState = Array.from({ length: boardRows }, () =>
+    Array.from({ length: boardCols }, () => {
+      return { state: "undeveloped", variant: 0 };
+    }),
+  );
+
+  boardState[2][2] = { state: "developed", variant: 0 };
+  boardState[4][1] = { state: "developed", variant: 0 };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       Landing page
@@ -17,7 +28,7 @@ export default function LandingPage() {
         height={600}
         backgroundColor={0x1099bb}
       >
-        <TileMap width={6} height={6} tileWidth={96} tileHeight={96} tileSet={tileSetPath} />
+        <TileMap boardState={boardState} tileWidth={96} tileHeight={96} tileSet={tileSetPath} />
       </Application>
     </main>
   );
