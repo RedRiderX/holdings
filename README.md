@@ -13,9 +13,9 @@ bun run --bun dev
 ## todo
 
 - [x] setup react + tailwind + vite
-    - [x] make it deploy with netlify
-    - [ ] sketch out interface
-    - [ ] add some basic logic
+- [x] make it deploy with netlify
+- [ ] sketch out interface
+- [ ] add some basic logic
 - [x] set up shadcn ui
     https://github.com/shadcn/app-tailwind-v4/
 - [x] setup pixi js
