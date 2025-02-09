@@ -19,7 +19,7 @@ bun run --bun dev
 - [x] set up shadcn ui
     https://github.com/shadcn/app-tailwind-v4/
 - [x] setup pixi js
-    - [ ] create tilemap base layer
+    - [x] create tilemap base layer
 - [ ] setup discord activity lobby with playroom 
     - [ ] what's the best way to make a test layer that bypasses discord???
         - Maybe make a discord and no discord path?
