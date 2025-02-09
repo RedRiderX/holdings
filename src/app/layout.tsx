@@ -2,6 +2,10 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner"
+import { Analytics } from "@/components/analytics"
+
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Holdings",
@@ -13,8 +17,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body
+        className={cn(
+          "bg-background min-h-svh overscroll-none font-sans antialiased",
+          GeistSans.variable,
+        )}
+      >
+        {children}
+        <Toaster />
+        <Analytics />
+      </body>
     </html>
   );
 }

@@ -1,8 +1,14 @@
 "use client";
 
 // import Link from "next/link";
+import { AppSidebar } from "@/components/app-sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { Application } from "@pixi/react";
-import { TileMap, type TileState } from "@/components/tileMap"
+import { TileMap, type TileState } from "@/components/tileMap";
 import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
@@ -15,23 +21,29 @@ export default function LandingPage() {
       return { state: "undeveloped", variant: 0 };
     }),
   );
-  
+
   if (boardState?.[2]?.[2])
     boardState[2][2] = { state: "developed", variant: 0 };
   if (boardState?.[4]?.[1])
     boardState[4][1] = { state: "developed", variant: 0 };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      Landing page
-      <Button>foo</Button>
-      <Application
-        width={800}
-        height={600}
-        backgroundColor={0x1099bb}
-      >
-        <TileMap boardState={boardState} tileWidth={96} tileHeight={96} tileSet={tileSetPath} />
-      </Application>
-    </main>
+      <main className="">
+        <SidebarProvider>
+          <SidebarInset>
+            Landing page
+            <Button>foo</Button>
+            <Application width={800} height={600} backgroundColor={0x1099bb}>
+              <TileMap
+                boardState={boardState}
+                tileWidth={96}
+                tileHeight={96}
+                tileSet={tileSetPath}
+              />
+            </Application>
+          </SidebarInset>
+          <AppSidebar side="right" />
+        </SidebarProvider>
+      </main>
   );
 }
