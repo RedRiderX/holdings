@@ -1,7 +1,8 @@
 "use client";
 
 // import Link from "next/link";
-import { AppSidebar } from "@/components/app-sidebar";
+import { StocksSidebar } from "@/components/ui/stocksSidebar";
+import { StatusBar } from "@/components/ui/statusBar";
 import {
   SidebarInset,
   SidebarProvider,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Application } from "@pixi/react";
 import { TileMap, type TileState } from "@/components/tileMap";
-import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   const tileSetPath = "/assets/game-city-tileset-base.png"; // Path to your tileset
@@ -28,22 +28,21 @@ export default function LandingPage() {
     boardState[4][1] = { state: "developed", variant: 0 };
 
   return (
-      <main className="">
-        <SidebarProvider>
-          <SidebarInset>
-            Landing page
-            <Button>foo</Button>
-            <Application width={800} height={600} backgroundColor={0x1099bb}>
-              <TileMap
-                boardState={boardState}
-                tileWidth={96}
-                tileHeight={96}
-                tileSet={tileSetPath}
-              />
-            </Application>
-          </SidebarInset>
-          <AppSidebar side="right" />
-        </SidebarProvider>
-      </main>
+    <main className="">
+      <SidebarProvider>
+        <SidebarInset >
+          <StatusBar />
+          <Application width={800} height={600} backgroundColor={0x1099bb}>
+            <TileMap
+              boardState={boardState}
+              tileWidth={96}
+              tileHeight={96}
+              tileSet={tileSetPath}
+            />
+          </Application>
+        </SidebarInset>
+        <StocksSidebar side="right" />
+      </SidebarProvider>
+    </main>
   );
 }

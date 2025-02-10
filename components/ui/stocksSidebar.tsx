@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/sidebar"
 import { CompanyChip } from "@/components/ui/companyChip";
 import { UserChip } from "@/components/ui/userChip";
+import { Button } from "@/components/ui/button";
+import { toast, Headless } from "@/components/ui/toast";
 
 // This is sample data.
 const data = {
@@ -56,10 +58,12 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function StocksSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarContent>
+        Landing page
+        <Headless />
         <UserChip />
         <CompanyChip />
 
